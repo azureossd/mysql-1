@@ -1,20 +1,7 @@
 #!/bin/bash
 
-# Install Apache and PHP
-sudo apt update
-
-sudo apt install apache2 php php-mysql libapache2-mod-php php-cli
-
-# Enable Apache and start it
-sudo systemctl enable apache2
-
-sudo systemctl start apache2
-
 # Adjust Firewall
-sudo ufw allow in "Apache Full"
 sudo ufw all 3306
-
-sudo chmod -R 0755 /var/www/html/
 
 # Install MySQL Server in a Non-Interactive mode. Default root password will be "root"
 echo "mysql-server-5.7 mysql-server/root_password password root" | sudo debconf-set-selections
@@ -35,4 +22,4 @@ sudo mysql -u admin -ppassword -e "CREATE DATABASE migrateddb;"
 sudo mysql -u root -proot -e "ALTER USER admin PASSWORD EXPIRE;"
 sudo service mysql restart
 
-wget -O ~/localdb.sql https://github.com/azureossd/mysql-1.git
+wget -O ~/localdb.sql https://github.com/azureossd/mysql-1/raw/master/localdb.sql
