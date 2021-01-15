@@ -16,9 +16,10 @@ sudo sed -i '/skip-external-locking/a disabled_storage_engines="MyISAM,FEDERATED
 sudo mysql -e "SET PASSWORD FOR root@localhost = PASSWORD('root');FLUSH PRIVILEGES;"
 sudo mysql -uroot -proot -e "CREATE USER 'admin'@'localhost' IDENTIFIED BY 'password';GRANT ALL PRIVILEGES ON *.* TO 'admin'@'localhost';FLUSH PRIVILEGES;"
 sudo mysql -uadmin -ppassword -e "CREATE DATABASE migrateddb;"
-sudo mysql -uroot -proot -e "ALTER USER admin PASSWORD EXPIRE;"
+sudo mysql -uroot -proot -e "ALTER USER admin@localhost PASSWORD EXPIRE;"
 sudo service mysql restart
 
+echo "MySQL restarted"
 sudo mkdir /backup
 
 wget -O /backup/localdb.sql https://github.com/azureossd/mysql-1/raw/master/localdb.sql
