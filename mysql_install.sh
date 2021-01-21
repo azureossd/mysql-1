@@ -6,7 +6,9 @@ sudo ufw allow from 127.0.0.1 to 127.0.0.1 port 3306 proto tcp
 # Install MySQL Server in a Non-Interactive mode. Default root password will be "root"
 
 sudo apt-get update
+sleep 30
 sudo apt-get -y install mysql-server-5.7
+sleep 90
 
 
 # Update config, create password for root, and new user
