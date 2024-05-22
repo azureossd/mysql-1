@@ -7,7 +7,7 @@ sudo ufw allow from 127.0.0.1 to 127.0.0.1 port 3306 proto tcp
 
 sudo apt-get update
 sleep 120
-sudo apt-get -y install mysql-server-5.7
+sudo apt-get -y install mysql-server-8.0
 sleep 180
 
 
