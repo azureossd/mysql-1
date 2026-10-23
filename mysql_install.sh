@@ -7,7 +7,7 @@ sudo ufw allow from 127.0.0.1 to 127.0.0.1 port 3306 proto tcp
 
 sudo apt-get update
 sleep 120
-sudo apt-get -y install mysql-server-8.0
+sudo apt-get -y install mysql-server || exit 1
 sleep 180
 
 
@@ -15,7 +15,7 @@ sleep 180
 
 sudo sed -i 's/127\.0\.0\.1/0\.0\.0\.0/g' /etc/mysql/my.cnf
 sudo sed -i '/skip-external-locking/a disabled_storage_engines="MyISAM,FEDERATED"' /etc/mysql/mysql.conf.d/mysqld.cnf
-sudo mysql -e "SET PASSWORD FOR root@localhost = PASSWORD('root');FLUSH PRIVILEGES;"
+sudo mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH caching_sha2_password BY 'root';FLUSH PRIVILEGES;" || exit 1
 sudo mysql -uroot -proot -e "CREATE USER 'admin'@'localhost' IDENTIFIED BY 'password';GRANT ALL PRIVILEGES ON *.* TO 'admin'@'localhost';FLUSH PRIVILEGES;"
 sudo mysql -uadmin -ppassword -e "CREATE DATABASE migrateddb;"
 sudo mysql -uroot -proot -e "ALTER USER admin@localhost PASSWORD EXPIRE;"
